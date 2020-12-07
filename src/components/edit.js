@@ -106,7 +106,6 @@ export class Edit extends React.Component {
                         </textarea>
                     </div>
 
-
                     <div className="form-group">
                         <input type='submit'
                             value='Edit Movie'
