@@ -34,9 +34,9 @@ export class MovieItem extends React.Component {
                                 {this.props.movie.Year}
                             </footer>
                         </blockquote>
+                        <Link to={"/edit/"+ this.props.movie._id} className="btn btn-primary">Edit</Link>
+                        <Button variant="danger" onClick={this.DeleteMovie}>Delete</Button>
                     </Card.Body>
-                    <Link to={"/edit/"+ this.props.movie._id} className="btn btn-primary">Edit</Link>
-                    <Button variant="danger" onClick={this.DeleteMovie}>Delete</Button>
                 </Card>
             </div>
         );

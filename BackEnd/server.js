@@ -4,6 +4,7 @@ const port = 4000
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const path = require ('path');
 
 
 app.use(cors());
@@ -14,6 +15,9 @@ app.use(function (req, res, next) {
         "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
+
+app.use(express.static(path.join(__dirname, '../build')));
+app.subscribe('/static', express.static(path.join(__dirname, 'build//static')));
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -48,11 +52,12 @@ app.get('/api/movies', (req, res) => {
 })
 
 app.get('/api/movies/:id',(req, res)=>{
+    console.log("Update movie: "+req.params.id);
+    console.log(req.body);
 
-    console.log(req.params.id);
-
-    movieModel.findById(req.params.id, (err,data)=>{
-        res.json(data);
+    movieModel.findById(req.params.id, req.body, {new: true},
+     (err,data)=>{
+        res.send(data);
     })
 })
 
@@ -89,6 +94,10 @@ app.post('/api/movies', (req, res) => {
     .catch();
 
     res.send('Data Recieved!');
+})
+
+app.get('*', (req,res)=>{
+    res.sendFile(path.join(__dirname+'/../build/index.html'));
 })
 
 app.listen(port, () => {

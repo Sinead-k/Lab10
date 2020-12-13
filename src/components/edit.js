@@ -20,10 +20,10 @@ export class Edit extends React.Component {
 
     // Lifecycle Hook
     componentDidMount(){
-        console.log(this.props.match.params.id);
+        console.log("load"+this.props.match.params.id);
 
-        axios.get('http://localhost:4000/api/movies'+ this.props.match.params.id)
-        .then(response =>{
+        axios.get('http://localhost:4000/api/movies/'+ this.props.match.params.id)
+        .then((response) =>{
             this.setState({
                 _id:response.data._id,
                 Title:response.data.title,
@@ -67,7 +67,7 @@ export class Edit extends React.Component {
             };
 
         axios.put('http://localhost:4000/api/movies/'+this.state._id, newMovie)
-        .then(res => {
+        .then((res) => {
             console.log(res.data)
         })
         .catch();  
